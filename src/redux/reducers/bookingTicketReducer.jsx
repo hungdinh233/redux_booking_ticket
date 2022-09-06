@@ -200,8 +200,17 @@ export const bookingTicketReducer = (state = defaultState, action) => {
         gia: seatPrice,
       };
       let bookedSeatInfo = [...state.bookedSeat];
-      bookedSeatInfo.push(clickedSeat);
-      state.bookedSeat = bookedSeatInfo;
+      let findSeatIndex = bookedSeatInfo.findIndex(
+        (seat) => seat.soGhe === seatName
+      );
+      //không tìm thấy trong mảng booked (chưa có) thì mới push, còn nếu có rồi sẽ không push thêm vào mảng booked nữa và chạy else để đưa ra khỏi mảng booked vì click 2 lần
+      if (findSeatIndex === -1) {
+        bookedSeatInfo.push(clickedSeat);
+        state.bookedSeat = bookedSeatInfo;
+      } else {
+        bookedSeatInfo.splice(findSeatIndex, 1);
+        state.bookedSeat = bookedSeatInfo;
+      }
       return { ...state };
     }
     case "HANDLE_DELETE_BOOKING": {
