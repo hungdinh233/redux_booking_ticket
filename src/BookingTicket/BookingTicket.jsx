@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import BookingInfo from "./BookingInfo";
+import SeatLines from "./SeatLines";
 
 class BookingTicket extends Component {
+  renderSeatLine = () => {
+    let { seatLine } = this.props;
+    return seatLine.map((line, index) => {
+      return (
+        <div key={index}>
+          <SeatLines line={line} seatLineIndex = {index}  className ="seatLine"/>
+        </div>
+      );
+    });
+  };
   render() {
     return (
       <div
@@ -24,15 +36,22 @@ class BookingTicket extends Component {
         >
           <div className="container">
             <div className="row">
-              <div className="col-8 d-flex flex-column align-item-center justify-content-center">
+              <div className="col-7 d-flex flex-column align-item-center justify-content-center me-5">
                 <h3 className="text-warning text-center">
                   ĐẶT VÉ XEM PHIM TẠI CYBERLEARN.VN
                 </h3>
                 <span className="text-light text-center mt-3">Màn hình</span>
                 <div className="d-flex flex-column align-items-center">
-                <div className="screen"></div>
-
+                  <div className="screen"></div>
+                  {this.renderSeatLine()}
                 </div>
+                
+              </div>
+              <div className="col-4">
+                <h3 className="text-white text-center mt-5">
+                  DANH SÁCH GHẾ BẠN CHỌN
+                </h3>
+                <BookingInfo />
               </div>
             </div>
           </div>
@@ -42,6 +61,8 @@ class BookingTicket extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  seatLine: state.bookingTicketReducer,
+});
 
 export default connect(mapStateToProps)(BookingTicket);
