@@ -9,7 +9,7 @@ class BookingTicket extends Component {
     return seatLine.map((line, index) => {
       return (
         <div key={index}>
-          <SeatLines line={line} seatLineIndex = {index}  className ="seatLine"/>
+          <SeatLines line={line} seatLineIndex={index} className="seatLine" />
         </div>
       );
     });
@@ -19,6 +19,7 @@ class BookingTicket extends Component {
       <div
         style={{
           position: "fixed",
+          overflow: "auto",
           width: "100%",
           height: "100%",
           backgroundImage: "url('./img/bgmovie.jpg')",
@@ -31,12 +32,12 @@ class BookingTicket extends Component {
           style={{
             background: "rgba(0,0,0,0.7)",
             width: "100%",
-            height: "100%",
+            height: "100vw",
           }}
         >
           <div className="container">
             <div className="row">
-              <div className="col-7 d-flex flex-column align-item-center justify-content-center me-5">
+              <div className="col-7 d-flex flex-column me-5">
                 <h3 className="text-warning text-center">
                   ĐẶT VÉ XEM PHIM TẠI CYBERLEARN.VN
                 </h3>
@@ -45,7 +46,6 @@ class BookingTicket extends Component {
                   <div className="screen"></div>
                   {this.renderSeatLine()}
                 </div>
-                
               </div>
               <div className="col-4">
                 <h3 className="text-white text-center mt-5">
@@ -62,7 +62,7 @@ class BookingTicket extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  seatLine: state.bookingTicketReducer,
+  seatLine: state.bookingTicketReducer.seatInfo,
 });
 
 export default connect(mapStateToProps)(BookingTicket);

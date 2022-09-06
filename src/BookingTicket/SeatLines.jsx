@@ -25,8 +25,25 @@ class SeatLines extends Component {
       }
       //return ghế bình thường (còn đang trống)
       else {
+        // console.log("hello",seatNumber.soGhe);
         return (
-          <button className="ghe" key={seatIndex}>
+          <button
+            className="ghe"
+            key={seatIndex}
+            onClick={() => {
+              // if (this.className === "ghe") {
+              //   this.className === "gheDangChon";
+              // }
+              const action = {
+                type: "HANDLE_CLICK_SEAT",
+                payload: {
+                  seatName: seatNumber.soGhe,
+                  seatPrice: seatNumber.gia,
+                },
+              };
+              this.props.dispatch(action);
+            }}
+          >
             {seatIndex + 1}
           </button>
         );
@@ -47,8 +64,6 @@ class SeatLines extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  //   seatLine: state.bookingTicketReducer,
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps)(SeatLines);
